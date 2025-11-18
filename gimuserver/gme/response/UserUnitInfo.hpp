@@ -120,7 +120,7 @@ static void buildUnit(std::string name, UserUnitInfo::Data& d) {
 		d.extHeal = 500;
 		d.skillID = 10017;
 		d.skillLv = 10;
-		d.extraSkillID = 10017;
+		d.extraSkillID = 110017;
 		d.extraSkillLv = 10;
 	}
 	// Add more units as needed)
