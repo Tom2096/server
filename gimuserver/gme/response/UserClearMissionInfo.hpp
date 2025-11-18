@@ -7,8 +7,13 @@ struct UserClearMissionInfo : public IResponse
 {
 	struct Data
 	{
+		std::string userID;
+		std::string missionID;
+
 		void Serialize(Json::Value& v) const
 		{
+			v["h7eY3sAK"] = userID;
+			v["j28VNcUW"] = missionID;
 			// TODO
 		}
 	};

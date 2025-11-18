@@ -64,7 +64,7 @@ struct UserUnitInfo : public IResponse
 			v["XJs2rPx0"] = limitOverHeal;
 			v["iNy0ZU5M"] = element;
 			v["oS3kTZ2W"] = std::to_string(leaderSkillID); // str
-			v["nj9Lw7mV"] = skillID; // str
+			v["nj9Lw7mV"] = std::to_string(skillID); // str
 			v["3NbeC8AB"] = skillLv;
 			v["iEFZ6H19"] = std::to_string(extraSkillID); // str
 			v["RQ5GnFE2"] = extraSkillLv;
@@ -75,7 +75,7 @@ struct UserUnitInfo : public IResponse
 			v["RXfC31FA"] = std::to_string(eqipItemFrameID2); // str
 			v["mZA7fH2v"] = std::to_string(equipItemID2); // str
 			v["dJNpLc81"] = newFlg;
-			//v["DbMVG16I"] = ? ;
+			//v["DbMVG16I"] = ? ; 
 			v["cP83zNsv"] = std::to_string(ExtraPassiveSkillID); // str
 			v["LjY4DfRg"] = std::to_string(ExtraPassiveSkillID2); // str
 			v["T4rewHa9"] = std::to_string(AddExtraPassiveSkillID); // str
@@ -89,9 +89,11 @@ struct UserUnitInfo : public IResponse
 		}
 	};
 
-	const char* getGroupName() const override { return "4ceMWH6k"; }
+	const char* getGroupName() const override { return overwrite ? "4ceMWH6k" : "qC2tJs4E"; }
 
 	std::vector<Data> Mst;
+
+	bool overwrite = true;
 
 protected:
 	size_t getRespCount() const override { return Mst.size(); }
@@ -101,4 +103,27 @@ protected:
 		Mst.at(i).Serialize(v);
 	}
 };
+
+// Very ugly hard-coded unit builder for testing purposes
+static void buildUnit(std::string name, UserUnitInfo::Data& d) {
+	if (name == "Vargas") {
+		d.unitID = 10017;
+		d.unitTypeID = 1;	// Default type (lord, anima, etc...)
+		d.element = "fire";
+		d.baseHp = 38000;
+		d.baseAtk = 7000;
+		d.baseDef = 5000;
+		d.baseHeal = 2000;
+		d.extHp = 3000;
+		d.extAtk = 900;
+		d.extDef = 900;
+		d.extHeal = 500;
+		d.skillID = 10017;
+		d.skillLv = 10;
+		d.extraSkillID = 10017;
+		d.extraSkillLv = 10;
+	}
+	// Add more units as needed)
+}
+
 RESPONSE_NS_END

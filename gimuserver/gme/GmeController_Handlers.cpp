@@ -6,9 +6,11 @@
 #include "handlers/BadgeInfoHandler.hpp"
 #include "handlers/ControlCenterEnterHandler.hpp"
 #include "handlers/UpdateInfoLightHandler.hpp"
+#include "handlers/GatchaActionHandler.hpp"
 #include "handlers/GatchaListHandler.hpp"
 #include "handlers/DeckEditHandler.hpp"
 #include "handlers/MissionStartHandler.hpp"
+#include "handlers/MissionEndHandler.hpp"
 
 #define REGISTER(name) InitializeHandler(std::make_shared<Handler::##name##Handler>())
 
@@ -21,7 +23,9 @@ void GmeController::InitializeHandlers()
 	REGISTER(BadgeInfo);
 	REGISTER(ControlCenterEnter);
 	REGISTER(UpdateInfoLight);
+	REGISTER(GatchaAction);
 	REGISTER(GatchaList);
 	REGISTER(DeckEdit);
 	REGISTER(MissionStart);
+	REGISTER(MissionEnd);
 }

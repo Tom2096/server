@@ -22,6 +22,7 @@
 #include "gme/response/VideoAdRegion.hpp"
 #include "gme/response/SummonerJournalUserInfo.hpp"
 #include "gme/response/SignalKey.hpp"
+#include "gme/response/PermitPlace.hpp"
 #include <json/reader.h>
 
 void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
@@ -333,29 +334,29 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 
                 unitInfo.Mst.emplace_back(d);
             }
-
+            
             // Fallback: Add a dummy unit if inventory is empty
             if (unitInfo.Mst.empty()) {
                 LOG_WARN << "UserInfoHandler: No units found, adding dummy unit for compatibility";
                 Response::UserUnitInfo::Data d;
                 d.userID = user.info.userID;
-                d.userUnitID = 1; // Note: This won't match the auto-incremented id, but used for dummy
-                d.unitID = 10017;
-                d.unitTypeID = 1; // Default rarity
-                d.element = "fire"; // Default
+                d.userUnitID = 9999; // Note: This won't match the auto-incremented id, but used for dummy
+                d.unitID = 51317;
+                d.unitTypeID = 1; // Default type (lord, anima, etc...)
+                d.element = "light"; // Default
                 d.unitLv = 1;
                 d.newFlg = 1;
                 d.receiveDate = 100;
                 d.FeBP = 100;
                 d.FeMaxUsableBP = 200;
-                d.baseHp = 1000;
-                d.baseAtk = 1000;
-                d.baseDef = 1000;
-                d.baseHeal = 1000;
-                d.addHp = 100;
-                d.addAtk = 100;
-                d.addDef = 100;
-                d.addHeal = 100;
+                d.baseHp = 55000;
+                d.baseAtk = 5000;
+                d.baseDef = 5000;
+                d.baseHeal = 5000;
+                d.addHp = 250;
+                d.addAtk = 250;
+                d.addDef = 250;
+                d.addHeal = 250;
                 d.extHp = 100;
                 d.extAtk = 100;
                 d.extDef = 100;
@@ -364,13 +365,14 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.limitOverAtk = 200;
                 d.limitOverDef = 200;
                 d.limitOverHeal = 200;
-                d.exp = 1;
-                d.totalExp = 1;
+                d.exp = 0;
+                d.totalExp = 0;
                 // Set defaults for other fields
                 d.leaderSkillID = 0;
-                d.skillID = 0;
-                d.extraSkillID = 0;
-                d.FeSkillInfo = "";
+                d.skillID = 51317;
+                d.skillLv = 10;
+                d.extraSkillID = 151317;
+                d.extraSkillLv = 10;
                 d.eqipItemFrameID = 0;
                 d.eqipItemFrameID2 = 0;
                 d.eqipItemID = 0;
@@ -378,6 +380,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.ExtraPassiveSkillID = 0;
                 d.ExtraPassiveSkillID2 = 0;
                 d.AddExtraPassiveSkillID = 0;
+                d.UnitImgType = 0;
                 unitInfo.Mst.emplace_back(d);
             }
 
@@ -446,6 +449,36 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
             {
                 Response::SignalKey v;
                 v.key = "5EdKHavF";
+                v.Serialize(res);
+            }
+
+            {
+                Response::PermitPlace v;
+                {
+                    Response::PermitPlace::Data d;
+					d.setAreaID("100");
+                    v.Mst.emplace_back(d);
+                }
+                {
+                    Response::PermitPlace::Data d;
+                    d.setLandID("1");
+                    v.Mst.emplace_back(d);
+                }
+                {
+                    Response::PermitPlace::Data d;
+                    d.setGateID("1");
+                    v.Mst.emplace_back(d);
+                }
+                {
+                    Response::PermitPlace::Data d;
+                    d.setMissionID("10");
+                    v.Mst.emplace_back(d);
+                }
+                {
+                    Response::PermitPlace::Data d;
+                    d.setDungeonID("10");
+                    v.Mst.emplace_back(d);
+                }
                 v.Serialize(res);
             }
 
